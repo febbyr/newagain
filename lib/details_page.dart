@@ -1,8 +1,10 @@
+import 'package:belajargetx2/model/request_model.dart';
 import 'package:flutter/material.dart';
 
 class DetailPage extends StatelessWidget {
-  final int index;
-  const DetailPage({Key key, this.index}) : super(key: key);
+  final RequestModel model;
+
+  DetailPage({@required this.model});
 
   @override
   Widget build(BuildContext context) {
@@ -11,7 +13,7 @@ class DetailPage extends StatelessWidget {
         title: Text("The Details Page"),
       ),
       body: Center(
-        child: Text("The Detail page #$index"),
+        child: Text("${model.userid}"),
       ),
     );
   }
