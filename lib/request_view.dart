@@ -1,7 +1,9 @@
 // import 'package:belajargetx2/details_page.dart';
+import 'package:belajargetx2/details_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/widgets.dart';
+import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'dart:convert';
@@ -15,7 +17,8 @@ class RequestView extends StatefulWidget {
 }
 
 class _RequestViewState extends State<RequestView> {
-  final Uri CARD_URL = Uri.parse("http://192.168.43.57/connectdb/getdata.php");
+  final Uri CARD_URL =
+      Uri.parse("https://syclara.qmuaji.com/connectdb/getdata.php");
   List<RequestModel> requestview;
 
   @override
@@ -60,31 +63,37 @@ class _RequestViewState extends State<RequestView> {
               return Center(child: CircularProgressIndicator());
             return Container(
               margin: EdgeInsets.only(bottom: 0.0),
-              child: ListView(
+              child: ListView.builder(
+                itemCount: snapshot.data.length,
                 padding: EdgeInsets.only(bottom: 160.0),
-                children: snapshot.data
-                    .map(
-                      (_data) => Column(children: <Widget>[
+                itemBuilder: (context, index) {
+                  RequestModel data = snapshot.data[index];
+
+                  return InkWell(
+                    onTap: () {
+                      Get.to(DetailPage(model: data));
+                    },
+                    child: Column(
+                      children: [
                         Card(
                           child: Column(
                             mainAxisSize: MainAxisSize.min,
-                            children: <Widget>[
+                            children: [
                               ListTile(
                                 leading: Icon(
                                   Icons.perm_media,
                                   size: 50,
                                 ),
-                                title: Text(_data.typeclaim),
-                                subtitle: Text(_data.description
-                                    // _data.tglpengajuan
-                                    ),
+                                title: Text(data.typeclaim),
+                                subtitle: Text(data.description),
                               )
                             ],
                           ),
                         )
-                      ]),
-                    )
-                    .toList(),
+                      ],
+                    ),
+                  );
+                },
               ),
             );
           },
