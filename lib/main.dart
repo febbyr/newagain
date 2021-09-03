@@ -18,13 +18,13 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       title: 'Flutter Demo',
-      home: RequestView(),
+      // home: RequestView(),
       getPages: getRoutePages,
-      // initialRoute: SplashScreen.TAG,
+      initialRoute: SplashScreen.TAG,
       theme: ThemeData(
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
     );
-  }
+  }a
 }
