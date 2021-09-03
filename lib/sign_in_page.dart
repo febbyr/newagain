@@ -55,108 +55,115 @@ class _SignInPageState extends State<SignInPage> {
     }
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text("sign in page"),
-      ),
-      body: Column(
-        children: [
-          Container(
-            width: double.infinity,
-            margin: EdgeInsets.fromLTRB(14, 26, 14, 6),
-            child: Text(
-              "Username",
-              style: TextStyle(
-                  fontSize: 22,
-                  color: Colors.black,
-                  fontWeight: FontWeight.w500),
-            ),
-          ),
-          Container(
-            width: double.infinity,
-            margin: EdgeInsets.symmetric(horizontal: 14),
-            padding: EdgeInsets.symmetric(horizontal: 10),
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(8),
-                border: Border.all(color: Colors.black)),
-            child: TextField(
-              controller: usernameController,
-              decoration: InputDecoration(
-                  border: InputBorder.none,
-                  hintStyle: TextStyle(color: Colors.grey),
-                  hintText: 'type your username'),
-            ),
-          ),
-          Container(
-            width: double.infinity,
-            margin: EdgeInsets.fromLTRB(14, 26, 14, 6),
-            child: Text(
-              "Password",
-              style: TextStyle(
-                  fontSize: 22,
-                  color: Colors.black,
-                  fontWeight: FontWeight.w500),
-            ),
-          ),
-          Container(
-            width: double.infinity,
-            margin: EdgeInsets.symmetric(horizontal: 14),
-            padding: EdgeInsets.symmetric(horizontal: 10),
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(8),
-                border: Border.all(color: Colors.black)),
-            child: Stack(
-              children: [
-                TextField(
-                  controller: passwordController,
-                  obscureText: !isVisible,
-                  decoration: InputDecoration(
-                    border: InputBorder.none,
-                    hintStyle: TextStyle(color: Colors.grey),
-                    hintText: 'type your password',
-                  ),
-                ),
-                Positioned(
-                  right: 0,
-                  child: IconButton(
-                    splashRadius: 20,
-                    onPressed: () {
-                      setState(() {
-                        isVisible = !isVisible;
-                      });
-                    },
-                    icon: Icon(Icons.remove_red_eye_rounded),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Container(
-            width: double.infinity,
-            margin: EdgeInsets.only(top: 24),
-            height: 45,
-            padding: EdgeInsets.symmetric(horizontal: 14),
-            child: isLoading
-                ? SpinKitFadingCircle(
-                    size: 45,
-                    color: Colors.amber,
-                  )
-                : RaisedButton(
-                    onPressed: () {
-                      SignInPage();
-                    },
-                    elevation: 0,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8)),
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              SizedBox(height: 40),
+              Image.asset(
+                "assets/logo.png",
+                width: 180,
+              ),
+              Container(
+                width: double.infinity,
+                margin: EdgeInsets.fromLTRB(14, 26, 14, 6),
+                child: Text(
+                  "Username",
+                  style: TextStyle(
+                    fontSize: 22,
                     color: Colors.black,
-                    child: Text(
-                      'Sign In',
-                      style: TextStyle(
-                          fontSize: 24,
-                          color: Colors.white,
-                          fontWeight: FontWeight.w500),
-                    )),
-          )
-        ],
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+              ),
+              Container(
+                width: double.infinity,
+                margin: EdgeInsets.symmetric(horizontal: 14),
+                padding: EdgeInsets.symmetric(horizontal: 10),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(8),
+                    border: Border.all(color: Colors.black)),
+                child: TextField(
+                  controller: usernameController,
+                  decoration: InputDecoration(
+                      border: InputBorder.none,
+                      hintStyle: TextStyle(color: Colors.grey),
+                      hintText: 'type your username'),
+                ),
+              ),
+              Container(
+                width: double.infinity,
+                margin: EdgeInsets.fromLTRB(14, 26, 14, 6),
+                child: Text(
+                  "Password",
+                  style: TextStyle(
+                      fontSize: 22,
+                      color: Colors.black,
+                      fontWeight: FontWeight.w500),
+                ),
+              ),
+              Container(
+                width: double.infinity,
+                margin: EdgeInsets.symmetric(horizontal: 14),
+                padding: EdgeInsets.symmetric(horizontal: 10),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(8),
+                    border: Border.all(color: Colors.black)),
+                child: Stack(
+                  children: [
+                    TextField(
+                      controller: passwordController,
+                      obscureText: !isVisible,
+                      decoration: InputDecoration(
+                        border: InputBorder.none,
+                        hintStyle: TextStyle(color: Colors.grey),
+                        hintText: 'type your password',
+                      ),
+                    ),
+                    Positioned(
+                      right: 0,
+                      child: IconButton(
+                        splashRadius: 20,
+                        onPressed: () {
+                          setState(() {
+                            isVisible = !isVisible;
+                          });
+                        },
+                        icon: Icon(Icons.remove_red_eye_rounded),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Container(
+                width: double.infinity,
+                margin: EdgeInsets.only(top: 24),
+                height: 45,
+                padding: EdgeInsets.symmetric(horizontal: 14),
+                child: isLoading
+                    ? SpinKitFadingCircle(
+                        size: 45,
+                        color: Colors.amber,
+                      )
+                    : RaisedButton(
+                        onPressed: () {
+                          SignInPage();
+                        },
+                        elevation: 0,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8)),
+                        color: Colors.black,
+                        child: Text(
+                          'Sign In',
+                          style: TextStyle(
+                              fontSize: 24,
+                              color: Colors.white,
+                              fontWeight: FontWeight.w500),
+                        )),
+              )
+            ],
+          ),
+        ),
       ),
     );
   }
