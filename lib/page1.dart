@@ -119,6 +119,7 @@ class _Page1State extends State<Page1> {
           IconButton(
             onPressed: () {
               Pref.clear("sesi");
+              Pref.clear("username");
               Get.offNamedUntil(SignInPage.TAG, ModalRoute.withName(Page1.TAG));
             },
             icon: Icon(
