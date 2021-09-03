@@ -16,7 +16,6 @@ class _UserPageState extends State<UserPage> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     this.fetchUser();
   }

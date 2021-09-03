@@ -1,11 +1,11 @@
 import 'dart:convert';
 
-import 'package:belajargetx2/page1.dart';
+import 'package:belajargetx2/landing_page.dart';
+import 'package:belajargetx2/utils/shared_preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:http/http.dart' as http;
 import 'package:toast/toast.dart';
-import 'package:get/get.dart';
 
 class SignInPage extends StatefulWidget {
   static final String TAG = '/SignInPage';
@@ -19,32 +19,41 @@ class _SignInPageState extends State<SignInPage> {
   TextEditingController usernameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   bool isLoading = false;
-
-  Future SignInPage() async {
-    Uri ADD_URL = Uri.parse("https://syclara.qmuaji.com/connectdb/login.php");
-    var response = await http.post(ADD_URL, body: {
-      "username": usernameController.text,
-      "password": passwordController.text,
-    });
-    var data = json.decode(response.body);
-    if (data == "success") {
-      Toast.show("Login successful", context,
-          gravity: Toast.CENTER,
-          duration: 2,
-          backgroundColor: Colors.greenAccent);
-      print("login successful");
-      Navigator.push(context, MaterialPageRoute(builder: (context) => Page1()));
-    } else {
-      Toast.show("username or password incorrect!", context,
-          gravity: Toast.CENTER,
-          duration: 2,
-          backgroundColor: Colors.redAccent);
-      print("login failed");
-    }
-  }
+  bool isVisible = false;
 
   @override
   Widget build(BuildContext context) {
+    Future SignInPage() async {
+      Uri ADD_URL = Uri.parse("https://syclara.qmuaji.com/connectdb/login.php");
+      var response = await http.post(ADD_URL, body: {
+        "username": usernameController.text,
+        "password": passwordController.text,
+      });
+      var data = json.decode(response.body);
+      if (data == "success") {
+        Pref.set("username", usernameController.text);
+        Pref.setBool("sesi", true);
+
+        Toast.show("Login successful", context,
+            gravity: Toast.CENTER,
+            duration: 2,
+            backgroundColor: Colors.greenAccent);
+        print("login successful");
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => LandingPage(),
+          ),
+        );
+      } else {
+        Toast.show("username or password incorrect!", context,
+            gravity: Toast.CENTER,
+            duration: 2,
+            backgroundColor: Colors.redAccent);
+        print("login failed");
+      }
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: Text("sign in page"),
@@ -95,12 +104,30 @@ class _SignInPageState extends State<SignInPage> {
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(8),
                 border: Border.all(color: Colors.black)),
-            child: TextField(
-              controller: passwordController,
-              decoration: InputDecoration(
-                  border: InputBorder.none,
-                  hintStyle: TextStyle(color: Colors.grey),
-                  hintText: 'type your password'),
+            child: Stack(
+              children: [
+                TextField(
+                  controller: passwordController,
+                  obscureText: !isVisible,
+                  decoration: InputDecoration(
+                    border: InputBorder.none,
+                    hintStyle: TextStyle(color: Colors.grey),
+                    hintText: 'type your password',
+                  ),
+                ),
+                Positioned(
+                  right: 0,
+                  child: IconButton(
+                    splashRadius: 20,
+                    onPressed: () {
+                      setState(() {
+                        isVisible = !isVisible;
+                      });
+                    },
+                    icon: Icon(Icons.remove_red_eye_rounded),
+                  ),
+                ),
+              ],
             ),
           ),
           Container(

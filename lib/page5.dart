@@ -1,3 +1,6 @@
+import 'package:belajargetx2/request_view.dart';
+import 'package:belajargetx2/sign_in_page.dart';
+import 'package:belajargetx2/utils/shared_preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:belajargetx2/page2.dart';
@@ -14,18 +17,7 @@ class _Page5State extends State<Page5> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Page 5"),
-      ),
-      body: Center(
-        child: RaisedButton(
-          onPressed: () {
-            Get.offNamedUntil(Page2.TAG, ModalRoute.withName(Page1.TAG));
-          },
-          color: Colors.blue,
-          child: Text("Go to Page 2"),
-        ),
-      ),
+      body: RequestView(),
     );
   }
 }

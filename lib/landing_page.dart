@@ -20,7 +20,6 @@ class _LandingPageState extends State<LandingPage> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
   }
 
@@ -50,7 +49,7 @@ class _LandingPageState extends State<LandingPage> {
                 color: Colors.red,
               ),
               icon: Icon(Icons.home, color: Colors.grey),
-              title: Text("page4",
+              title: Text("Home",
                   style: TextStyle(
                     color:
                         _bottomNavCurrentIndex == 0 ? Colors.red : Colors.grey,

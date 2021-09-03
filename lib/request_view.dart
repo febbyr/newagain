@@ -23,7 +23,6 @@ class _RequestViewState extends State<RequestView> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
   }
 
@@ -52,82 +51,66 @@ class _RequestViewState extends State<RequestView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("just fun"),
-      ),
-      body: RefreshIndicator(
-        onRefresh: _refresh,
-        child: FutureBuilder<List<RequestModel>>(
-          future: _fetchData(),
-          builder: (context, snapshot) {
-            if (!snapshot.hasData)
-              return Center(child: CircularProgressIndicator());
-            return Container(
-              margin: EdgeInsets.only(bottom: 0.0),
-              child: ListView.builder(
-                itemCount: snapshot.data.length,
-                padding: EdgeInsets.only(bottom: 160.0),
-                itemBuilder: (context, index) {
-                  RequestModel data = snapshot.data[index];
-
-                  return InkWell(
-                    onTap: () {
-                      Get.to(DetailPage(model: data));
-                    },
-                    child: Column(
-                      children: [
-                        Card(
-                          child: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              ListTile(
-                                leading: Icon(
-                                  Icons.perm_media,
-                                  size: 50,
-                                ),
-                                title: Text(data.idUserClaim != null
-                                    ? data.idUserClaim.toString()
-                                    : "Tidak Ada"),
-                                subtitle: Text(data.totalAmount.toString()),
-                              )
-                            ],
-                          ),
-                        )
-                      ],
-                    ),
-                  );
-                },
-              ),
-            );
-          },
+        title: Text(
+          "Title Here",
+          style: TextStyle(
+            color: Colors.black,
+          ),
         ),
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+      ),
+      body: SafeArea(
+        child: RefreshIndicator(
+          onRefresh: _refresh,
+          child: FutureBuilder<List<RequestModel>>(
+            future: _fetchData(),
+            builder: (context, snapshot) {
+              if (!snapshot.hasData)
+                return Center(child: CircularProgressIndicator());
+              return Container(
+                margin: EdgeInsets.only(bottom: 0.0),
+                child: ListView.builder(
+                  itemCount: snapshot.data.length,
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 8,
+                    vertical: 16,
+                  ),
+                  itemBuilder: (context, index) {
+                    RequestModel data = snapshot.data[index];
 
-        // child: Column(
-        //   mainAxisAlignment: MainAxisAlignment.center,
-        //   children: <Widget>[
-        //     Expanded(
-        //       child: ListView.builder(
-        //         itemCount: 20,
-        //         itemBuilder: (_, index) {
-        //           return Card(
-        //             child: ListTile(
-        //                 title: Text("The list item #$index"),
-        //                 subtitle: Text("The subtitle"),
-        //                 leading: Icon(Icons.thumb_up),
-        //                 trailing: IconButton(
-        //                   onPressed: () {
-        //                     Navigator.push(
-        //                         context,
-        //                         MaterialPageRoute(
-        //                             builder: (context) => DetailPage()));
-        //                   },
-        //                   icon: Icon(Icons.arrow_forward),
-        //                 )),
-        //           );
-        //         },
-        //       ),
-        //     ),
-        //   ],
-        // ),
+                    return InkWell(
+                      onTap: () {
+                        Get.to(DetailPage(model: data));
+                      },
+                      child: Column(
+                        children: [
+                          Card(
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                ListTile(
+                                  leading: Icon(
+                                    Icons.perm_media,
+                                    size: 50,
+                                  ),
+                                  title: Text(data.idUserClaim != null
+                                      ? data.idUserClaim.toString()
+                                      : "Tidak Ada"),
+                                  subtitle: Text(data.totalAmount.toString()),
+                                )
+                              ],
+                            ),
+                          )
+                        ],
+                      ),
+                    );
+                  },
+                ),
+              );
+            },
+          ),
+        ),
       ),
     );
   }

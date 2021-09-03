@@ -1,4 +1,5 @@
 import 'dart:ui';
+import 'package:belajargetx2/utils/shared_preferences.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -16,28 +17,22 @@ class CreateForm extends StatefulWidget {
 }
 
 class _CreateFormState extends State<CreateForm> {
-  Person selectedPerson;
+  String username = "";
+  int selectedPerson = null;
   List<Person> persons = [
-    Person("Kesehatan"),
-    Person("Parkir"),
-    Person("Education")
+    Person("Kesehatan", 402),
+    Person("Parkir", 403),
+    Person("Education", 401)
   ];
   TextEditingController amount = TextEditingController();
   TextEditingController description = TextEditingController();
-
-  add(ClaimModel claimModel) async {
-    await ClaimService().addClaim(claimModel).then((success) {
-      Toast.show("add successful", context, gravity: Toast.CENTER, duration: 2);
-      print("add successful");
-    });
-  }
 
   List<DropdownMenuItem> generateItems(List<Person> persons) {
     List<DropdownMenuItem> items = [];
     for (var item in persons) {
       items.add(DropdownMenuItem(
         child: Text(item.name),
-        value: item,
+        value: item.value,
       ));
     }
     return items;
@@ -45,24 +40,43 @@ class _CreateFormState extends State<CreateForm> {
 
   @override
   void initState() {
-    print("halaman 2 refresh");
     super.initState();
+    getUsername();
+  }
+
+  Future getUsername() async {
+    String data = await Pref.get("username");
+
+    setState(() {
+      username = data;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
+    add(ClaimModel claimModel) async {
+      await ClaimService().addClaim(claimModel).then((success) {
+        Toast.show("add successful", context,
+            gravity: Toast.CENTER, duration: 2);
+        print("add successful");
+      });
+    }
+
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Row(
           children: [
             RichText(
-                text: TextSpan(
-                    text: "Input your Claim here",
-                    style: TextStyle(
-                        fontSize: 16,
-                        color: Colors.black,
-                        fontWeight: FontWeight.bold)))
+              text: TextSpan(
+                text: "Input your Claim here",
+                style: TextStyle(
+                  fontSize: 16,
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            )
           ],
         ),
         SizedBox(
@@ -92,11 +106,6 @@ class _CreateFormState extends State<CreateForm> {
             },
           ),
         ),
-        Text(
-            (selectedPerson != null)
-                ? selectedPerson.name
-                : "belum ada yang terpilih",
-            style: TextStyle(fontSize: 18)),
         SizedBox(
           height: 5,
         ),
@@ -153,9 +162,11 @@ class _CreateFormState extends State<CreateForm> {
                   gravity: Toast.CENTER, duration: 2);
             } else {
               ClaimModel claimModel = ClaimModel(
-                  typeclaim: selectedPerson.name,
-                  amount: amount.text,
-                  description: description.text);
+                username: username,
+                idclaim: selectedPerson,
+                amount: int.parse(amount.text),
+                description: description.text,
+              );
               add(claimModel);
             }
           },
@@ -175,5 +186,6 @@ class _CreateFormState extends State<CreateForm> {
 
 class Person {
   String name;
-  Person(this.name);
+  int value;
+  Person(this.name, this.value);
 }
