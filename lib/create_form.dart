@@ -1,13 +1,16 @@
 import 'dart:ui';
+
+import 'package:belajargetx2/landing_page.dart';
+import 'package:belajargetx2/service/claim_service.dart';
 import 'package:belajargetx2/utils/shared_preferences.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/widgets.dart';
+import 'package:get/get.dart';
 import 'package:toast/toast.dart';
 import 'package:belajargetx2/model/claim_model.dart';
-import 'package:belajargetx2/service/claim_service.dart';
 
 class CreateForm extends StatefulWidget {
   const CreateForm({Key key}) : super(key: key);
@@ -30,10 +33,12 @@ class _CreateFormState extends State<CreateForm> {
   List<DropdownMenuItem> generateItems(List<Person> persons) {
     List<DropdownMenuItem> items = [];
     for (var item in persons) {
-      items.add(DropdownMenuItem(
-        child: Text(item.name),
-        value: item.value,
-      ));
+      items.add(
+        DropdownMenuItem<int>(
+          child: Text(item.name),
+          value: item.value,
+        ),
+      );
     }
     return items;
   }
@@ -56,40 +61,42 @@ class _CreateFormState extends State<CreateForm> {
   Widget build(BuildContext context) {
     add(ClaimModel claimModel) async {
       await ClaimService().addClaim(claimModel).then((success) {
-        Toast.show("add successful", context,
-            gravity: Toast.CENTER, duration: 2);
-        print("add successful");
+        Toast.show(
+          "add successful",
+          context,
+          gravity: Toast.CENTER,
+          duration: 2,
+        );
+        Get.offAll(LandingPage());
       });
     }
 
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Row(
-          children: [
-            RichText(
-              text: TextSpan(
-                text: "Input your Claim here",
-                style: TextStyle(
-                  fontSize: 16,
-                  color: Colors.black,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            )
-          ],
+        Text(
+          "Input your Claim here",
+          style: TextStyle(
+            fontSize: 16,
+            color: Colors.black,
+            fontWeight: FontWeight.bold,
+          ),
         ),
         SizedBox(
           height: 35,
         ),
         Container(
           width: double.infinity,
-          margin: EdgeInsets.all(10),
+          margin: EdgeInsets.only(bottom: 16),
           child: Text("Claim Type"),
         ),
         Container(
           width: double.infinity,
-          margin: EdgeInsets.all(10),
+          padding: EdgeInsets.symmetric(
+            vertical: 4,
+            horizontal: 16,
+          ),
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(8),
               border: Border.all(color: Colors.black)),
@@ -106,22 +113,25 @@ class _CreateFormState extends State<CreateForm> {
             },
           ),
         ),
-        SizedBox(
-          height: 5,
-        ),
+        SizedBox(height: 24),
         Container(
           width: double.infinity,
-          margin: EdgeInsets.all(10),
+          margin: EdgeInsets.only(bottom: 16),
           child: Text("Total Amount"),
         ),
         Container(
           width: double.infinity,
-          margin: EdgeInsets.all(10),
+          padding: EdgeInsets.symmetric(
+            vertical: 4,
+            horizontal: 16,
+          ),
           decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(8),
-              border: Border.all(color: Colors.black)),
+            borderRadius: BorderRadius.circular(8),
+            border: Border.all(color: Colors.black),
+          ),
           child: TextField(
             controller: amount,
+            keyboardType: TextInputType.number,
             decoration: InputDecoration(
               hintText: "Amount",
               border: InputBorder.none,
@@ -129,16 +139,19 @@ class _CreateFormState extends State<CreateForm> {
           ),
         ),
         SizedBox(
-          height: 5,
+          height: 24,
         ),
         Container(
           width: double.infinity,
-          margin: EdgeInsets.all(10),
+          margin: EdgeInsets.only(bottom: 16),
           child: Text("Description"),
         ),
         Container(
           width: double.infinity,
-          margin: EdgeInsets.all(10),
+          padding: EdgeInsets.symmetric(
+            vertical: 4,
+            horizontal: 16,
+          ),
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(8),
               border: Border.all(color: Colors.black)),
@@ -172,11 +185,20 @@ class _CreateFormState extends State<CreateForm> {
           },
           child: Container(
             decoration: BoxDecoration(
-                color: Colors.amber, borderRadius: BorderRadius.circular(20)),
+              color: Colors.amber,
+              borderRadius: BorderRadius.circular(8),
+            ),
             alignment: Alignment.center,
             width: double.maxFinite,
             padding: EdgeInsets.symmetric(vertical: 16),
-            child: Text("Submit"),
+            child: Text(
+              "Submit",
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
           ),
         ),
       ],

@@ -21,19 +21,25 @@ class _Page2State extends State<Page2> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("input claim"),
+        title: Text(
+          "Input Claim",
+          style: TextStyle(color: Colors.black),
+        ),
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        iconTheme: IconThemeData(
+          color: Colors.black,
+        ),
       ),
       body: Column(
         children: [
           Column(
-            children: [CreateForm()],
-          ),
-          RaisedButton(
-            onPressed: () {
-              Get.toNamed(Page3.TAG);
-            },
-            color: Colors.blue,
-            child: Text("Go to Page 3"),
+            children: [
+              Padding(
+                padding: EdgeInsets.all(16),
+                child: CreateForm(),
+              ),
+            ],
           ),
         ],
       ),
