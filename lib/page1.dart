@@ -91,6 +91,7 @@ class _Page1State extends State<Page1> {
             ..sort((a, b) => a.amount.compareTo(b.amount));
           loading2 = false;
         });
+        print(data.map((e) => e.date));
       }
     } catch (e) {
       print(e);

@@ -131,7 +131,6 @@ class _CreateFormState extends State<CreateForm> {
           ),
           child: TextField(
             controller: amount,
-            keyboardType: TextInputType.number,
             decoration: InputDecoration(
               hintText: "Amount",
               border: InputBorder.none,
