@@ -66,7 +66,7 @@ class _LandingPageState extends State<LandingPage> {
                   color: Colors.red,
                 ),
                 icon: Icon(Icons.assignment, color: Colors.grey),
-                title: Text("page5",
+                title: Text("List Claim",
                     style: TextStyle(
                       color: _bottomNavCurrentIndex == 1
                           ? Colors.red

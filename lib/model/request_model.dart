@@ -1,17 +1,25 @@
 class RequestModel {
-  int idUserClaim;
-  int totalAmount;
+  String username;
+  DateTime claimDate;
+  int amount;
+  String typeClaim;
+  String description;
 
   RequestModel({
-    this.idUserClaim,
-    this.totalAmount,
+    this.username,
+    this.claimDate,
+    this.amount,
+    this.typeClaim,
+    this.description,
   });
 
   factory RequestModel.fromJson(Map<String, dynamic> json) {
     return RequestModel(
-      idUserClaim:
-          int.parse(json['idUserClaim'] != null ? json['idUserClaim'] : '0'),
-      totalAmount: int.parse(json['totalAmount']),
+      username: json['username'],
+      claimDate: DateTime.parse(json['claimDate']),
+      amount: int.parse(json['amount']),
+      typeClaim: json['typeClaim'],
+      description: json['description'],
     );
   }
 }

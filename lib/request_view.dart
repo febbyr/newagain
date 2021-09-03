@@ -100,12 +100,10 @@ class _RequestViewState extends State<RequestView> {
                                     Icons.request_page_rounded,
                                     size: 50,
                                   ),
-                                  title: Text(data.idUserClaim != null
-                                      ? data.idUserClaim.toString()
-                                      : "Tidak Ada"),
-                                  subtitle: Text(
-                                    data.totalAmount.toString(),
+                                  title: Text(
+                                    '${data.username} (${data.typeClaim})',
                                   ),
+                                  subtitle: Text(data.claimDate.toString()),
                                 )
                               ],
                             ),
