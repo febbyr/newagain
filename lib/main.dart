@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       title: 'Flutter Demo',
-      home: Page1(),
+      home: RequestView(),
       getPages: getRoutePages,
       // initialRoute: SplashScreen.TAG,
       theme: ThemeData(

@@ -13,7 +13,7 @@ class DetailPage extends StatelessWidget {
         title: Text("The Details Page"),
       ),
       body: Center(
-        child: Text("${model.userid}"),
+        child: Text("${model.totalAmount}"),
       ),
     );
   }

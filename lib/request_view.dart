@@ -84,8 +84,10 @@ class _RequestViewState extends State<RequestView> {
                                   Icons.perm_media,
                                   size: 50,
                                 ),
-                                title: Text(data.typeclaim),
-                                subtitle: Text(data.description),
+                                title: Text(data.idUserClaim != null
+                                    ? data.idUserClaim.toString()
+                                    : "Tidak Ada"),
+                                subtitle: Text(data.totalAmount.toString()),
                               )
                             ],
                           ),
