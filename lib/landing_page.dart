@@ -1,6 +1,11 @@
+//landing page
+import 'package:belajargetx2/page1.dart';
+import 'package:belajargetx2/page2.dart';
 import 'package:flutter/material.dart';
-import 'page4.dart';
+
 import 'page5.dart';
+import 'page2.dart';
+import 'package:get/get.dart';
 
 class LandingPage extends StatefulWidget {
   const LandingPage({Key key}) : super(key: key);
@@ -11,7 +16,7 @@ class LandingPage extends StatefulWidget {
 
 class _LandingPageState extends State<LandingPage> {
   int _bottomNavCurrentIndex = 0;
-  List<Widget> _container = [Page4(), Page5()];
+  List<Widget> _container = [Page1(), Page5()];
 
   @override
   void initState() {
@@ -22,6 +27,13 @@ class _LandingPageState extends State<LandingPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Get.toNamed(Page2.TAG);
+        },
+        child: Icon(Icons.add),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       body: _container[_bottomNavCurrentIndex],
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
