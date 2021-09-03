@@ -34,38 +34,46 @@ class _LandingPageState extends State<LandingPage> {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       body: _container[_bottomNavCurrentIndex],
-      bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType.fixed,
-        onTap: (index) {
-          setState(() {
-            _bottomNavCurrentIndex = index;
-          });
-        },
-        currentIndex: _bottomNavCurrentIndex,
-        items: [
-          BottomNavigationBarItem(
-              activeIcon: Icon(
-                Icons.home,
-                color: Colors.red,
-              ),
-              icon: Icon(Icons.home, color: Colors.grey),
-              title: Text("Home",
-                  style: TextStyle(
-                    color:
-                        _bottomNavCurrentIndex == 0 ? Colors.red : Colors.grey,
-                  ))),
-          BottomNavigationBarItem(
-              activeIcon: Icon(
-                Icons.assignment,
-                color: Colors.red,
-              ),
-              icon: Icon(Icons.assignment, color: Colors.grey),
-              title: Text("page5",
-                  style: TextStyle(
-                    color:
-                        _bottomNavCurrentIndex == 1 ? Colors.red : Colors.grey,
-                  ))),
-        ],
+      bottomNavigationBar: BottomAppBar(
+        shape: CircularNotchedRectangle(),
+        notchMargin: 8,
+        child: BottomNavigationBar(
+          type: BottomNavigationBarType.fixed,
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          onTap: (index) {
+            setState(() {
+              _bottomNavCurrentIndex = index;
+            });
+          },
+          currentIndex: _bottomNavCurrentIndex,
+          items: [
+            BottomNavigationBarItem(
+                activeIcon: Icon(
+                  Icons.home,
+                  color: Colors.red,
+                ),
+                icon: Icon(Icons.home, color: Colors.grey),
+                title: Text("Home",
+                    style: TextStyle(
+                      color: _bottomNavCurrentIndex == 0
+                          ? Colors.red
+                          : Colors.grey,
+                    ))),
+            BottomNavigationBarItem(
+                activeIcon: Icon(
+                  Icons.assignment,
+                  color: Colors.red,
+                ),
+                icon: Icon(Icons.assignment, color: Colors.grey),
+                title: Text("page5",
+                    style: TextStyle(
+                      color: _bottomNavCurrentIndex == 1
+                          ? Colors.red
+                          : Colors.grey,
+                    ))),
+          ],
+        ),
       ),
     );
   }

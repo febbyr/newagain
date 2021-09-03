@@ -24,6 +24,9 @@ class _SignInPageState extends State<SignInPage> {
   @override
   Widget build(BuildContext context) {
     Future SignInPage() async {
+      setState(() {
+        isLoading = true;
+      });
       Uri ADD_URL = Uri.parse("https://syclara.qmuaji.com/connectdb/login.php");
       var response = await http.post(ADD_URL, body: {
         "username": usernameController.text,
@@ -46,6 +49,9 @@ class _SignInPageState extends State<SignInPage> {
           ),
         );
       } else {
+        setState(() {
+          isLoading = false;
+        });
         Toast.show("username or password incorrect!", context,
             gravity: Toast.CENTER,
             duration: 2,
@@ -84,6 +90,7 @@ class _SignInPageState extends State<SignInPage> {
                     borderRadius: BorderRadius.circular(8),
                     border: Border.all(color: Colors.black)),
                 child: TextField(
+                  enabled: !isLoading,
                   controller: usernameController,
                   decoration: InputDecoration(
                       border: InputBorder.none,
@@ -112,6 +119,7 @@ class _SignInPageState extends State<SignInPage> {
                 child: Stack(
                   children: [
                     TextField(
+                      enabled: !isLoading,
                       controller: passwordController,
                       obscureText: !isVisible,
                       decoration: InputDecoration(
