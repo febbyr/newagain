@@ -1,10 +1,6 @@
 class RequestModel {
   int idUserClaim;
   int totalAmount;
-  // DateTime totalAmount;
-  // String name;
-  // int id;
-  // int userid;
 
   RequestModel({
     this.idUserClaim,
