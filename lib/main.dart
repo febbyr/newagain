@@ -1,4 +1,5 @@
 import 'package:belajargetx2/landing_page.dart';
+import 'package:belajargetx2/page1.dart';
 import 'package:belajargetx2/page2.dart';
 import 'package:belajargetx2/request_view.dart';
 import 'package:belajargetx2/routes/router.dart';
@@ -17,7 +18,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       title: 'Flutter Demo',
-      home: RequestView(),
+      home: Page1(),
       getPages: getRoutePages,
       // initialRoute: SplashScreen.TAG,
       theme: ThemeData(
